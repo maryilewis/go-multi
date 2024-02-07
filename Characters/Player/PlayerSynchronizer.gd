@@ -8,12 +8,17 @@ extends MultiplayerSynchronizer
 @export var direction := Vector2()
 
 signal shirt_color_index_change(new_value)
+signal name_change(new_value)
 
 @export var shirt_material: int :
 	set(mat_index):
 		shirt_material = mat_index
 		shirt_color_index_change.emit(mat_index)
 
+@export var display_name: String :
+	set(new_name):
+		display_name = new_name
+		name_change.emit(new_name)
 
 func _ready():
 	# Only process for the local player.
@@ -34,3 +39,6 @@ func _process(_delta):
 # set shirt color
 func _on_shirt_color_selected(index):
 	shirt_material = index
+
+func _on_name_changed(value):
+	display_name = value

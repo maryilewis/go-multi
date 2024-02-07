@@ -30,6 +30,11 @@ var shirt_materials = []
 		#TODO fix initial load
 		if (shirt_materials.size()):
 			$MeshInstance3D.mesh.material = shirt_materials[mat_index]
+			
+@export var display_name: String :
+	set(new_name):
+		display_name = new_name
+		$Name.text = new_name
 
 # Player synchronized input.
 @onready var input = $PlayerInput
