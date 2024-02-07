@@ -1,0 +1,137 @@
+[gd_scene load_steps=10 format=3 uid="uid://cum4o46q1ko7s"]
+
+[ext_resource type="Script" path="res://Characters/Player/player.gd" id="1_b8ru6"]
+[ext_resource type="Material" uid="uid://ii3g3xaadles" path="res://Characters/character materials/shirt materials/red.tres" id="2_5f1lr"]
+[ext_resource type="Script" path="res://Characters/Player/PlayerSynchronizer.gd" id="2_l4uuh"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rege4"]
+albedo_color = Color(1, 0.878431, 0.270588, 1)
+emission_enabled = true
+emission = Color(1, 0.968627, 0.803922, 1)
+
+[sub_resource type="PrismMesh" id="PrismMesh_f1h3y"]
+material = SubResource("StandardMaterial3D_rege4")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_wr8mu"]
+resource_local_to_scene = true
+material = ExtResource("2_5f1lr")
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_gmg3d"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_x34pl"]
+properties/0/path = NodePath("../PlayerInput:direction")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_nm2p0"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:player")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath(".:velocity")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath(".:shirt_material")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_b8ru6")
+
+[node name="Indicator" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.2, 1.74846e-08, 0, -1.74846e-08, -0.2, 0, 0, 0, 0.2, 0, 1.41427, 0)
+visible = false
+mesh = SubResource("PrismMesh_f1h3y")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 1, 0)
+mesh = SubResource("CylinderMesh_wr8mu")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 1.00029, 0)
+shape = SubResource("CylinderShape3D_gmg3d")
+
+[node name="PlayerInput" type="MultiplayerSynchronizer" parent="."]
+root_path = NodePath("../ServerSynchronizer")
+replication_config = SubResource("SceneReplicationConfig_x34pl")
+script = ExtResource("2_l4uuh")
+
+[node name="ServerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_nm2p0")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.60723, 4.29942)
+
+[node name="Character Settings" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="Character Settings"]
+custom_minimum_size = Vector2(300, 150)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Character Settings/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.5
+offset_top = -35.0
+offset_right = 125.5
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Character Settings/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Character Settings/Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Name"
+
+[node name="TextEdit" type="TextEdit" parent="Character Settings/Panel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 35)
+layout_mode = 2
+text = "Name"
+placeholder_text = "Name"
+scroll_fit_content_height = true
+
+[node name="Color 1" type="HBoxContainer" parent="Character Settings/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Character Settings/Panel/VBoxContainer/Color 1"]
+layout_mode = 2
+text = "Color 1
+"
+
+[node name="OptionButton" type="OptionButton" parent="Character Settings/Panel/VBoxContainer/Color 1"]
+layout_mode = 2
+item_count = 3
+popup/item_0/text = "Red"
+popup/item_0/id = 0
+popup/item_1/text = "Orange"
+popup/item_1/id = 1
+popup/item_2/text = "Yellow"
+popup/item_2/id = 2
+
+[connection signal="item_selected" from="Character Settings/Panel/VBoxContainer/Color 1/OptionButton" to="." method="_on_shirt_color_selected"]

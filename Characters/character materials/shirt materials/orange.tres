@@ -1,0 +1,5 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://snlx4dh1mtc6"]
+
+[resource]
+resource_local_to_scene = true
+albedo_color = Color(0.933333, 0.490196, 0, 1)
