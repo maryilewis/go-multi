@@ -22,6 +22,9 @@ material = ExtResource("2_5f1lr")
 properties/0/path = NodePath("../PlayerInput:direction")
 properties/0/spawn = true
 properties/0/replication_mode = 1
+properties/1/path = NodePath("../PlayerInput:shirt_material")
+properties/1/spawn = true
+properties/1/replication_mode = 2
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_nm2p0"]
 properties/0/path = NodePath(".:position")
@@ -33,9 +36,6 @@ properties/1/replication_mode = 2
 properties/2/path = NodePath(".:velocity")
 properties/2/spawn = true
 properties/2/replication_mode = 2
-properties/3/path = NodePath(".:shirt_material")
-properties/3/spawn = true
-properties/3/replication_mode = 2
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_b8ru6")
@@ -66,6 +66,8 @@ replication_config = SubResource("SceneReplicationConfig_nm2p0")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.60723, 4.29942)
 
 [node name="Character Settings" type="Control" parent="."]
+process_mode = 4
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -134,4 +136,5 @@ popup/item_1/id = 1
 popup/item_2/text = "Yellow"
 popup/item_2/id = 2
 
-[connection signal="item_selected" from="Character Settings/Panel/VBoxContainer/Color 1/OptionButton" to="." method="_on_shirt_color_selected"]
+[connection signal="shirt_color_index_change" from="PlayerInput" to="." method="_on_player_input_shirt_color_index_change"]
+[connection signal="item_selected" from="Character Settings/Panel/VBoxContainer/Color 1/OptionButton" to="PlayerInput" method="_on_shirt_color_selected"]

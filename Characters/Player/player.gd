@@ -16,6 +16,7 @@ var shirt_materials = []
 @onready var blue_mat = preload("res://Characters/character materials/shirt materials/blue.tres")
 @onready var purple_mat = preload("res://Characters/character materials/shirt materials/purple.tres")
 
+
 # Set by the authority, synchronized on spawn.
 @export var player : int :
 	set(id):
@@ -23,12 +24,7 @@ var shirt_materials = []
 		# Give authority over the player input to the appropriate peer.
 		$PlayerInput.set_multiplayer_authority(id)
 
-@export var shirt_material: int :
-	set(mat_index):
-		shirt_material = mat_index
-		#TODO fix initial load
-		if (shirt_materials.size()):
-			$MeshInstance3D.mesh.material = shirt_materials[mat_index]
+
 
 # Player synchronized input.
 @onready var input = $PlayerInput
@@ -38,6 +34,8 @@ func _ready():
 	if player == multiplayer.get_unique_id():
 		$Camera3D.current = true
 		$Indicator.visible = true
+		$"Character Settings".process_mode = Node.PROCESS_MODE_INHERIT
+		$"Character Settings".visible = true
 	# Only process on server.
 	# EDIT: Let the client simulate player movement too to compesate network input latency.
 	set_physics_process(multiplayer.is_server())
@@ -47,6 +45,7 @@ func _ready():
 	shirt_materials.append(green_mat)
 	shirt_materials.append(blue_mat)
 	shirt_materials.append(purple_mat)
+
 
 
 func _physics_process(delta):
@@ -72,7 +71,9 @@ func _physics_process(delta):
 
 	move_and_slide()
 
-# set shirt color
-func _on_shirt_color_selected(index):
-	print("set material for player ", player)
-	shirt_material = index
+
+
+func _on_player_input_shirt_color_index_change(new_value):
+	#TODO fix initial load
+	if (shirt_materials.size()):
+		$MeshInstance3D.mesh.material = shirt_materials[new_value]
