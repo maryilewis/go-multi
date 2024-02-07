@@ -24,7 +24,12 @@ var shirt_materials = []
 		# Give authority over the player input to the appropriate peer.
 		$PlayerInput.set_multiplayer_authority(id)
 
-
+@export var shirt_material: int :
+	set(mat_index):
+		shirt_material = mat_index
+		#TODO fix initial load
+		if (shirt_materials.size()):
+			$MeshInstance3D.mesh.material = shirt_materials[mat_index]
 
 # Player synchronized input.
 @onready var input = $PlayerInput
@@ -71,9 +76,5 @@ func _physics_process(delta):
 
 	move_and_slide()
 
-
-
 func _on_player_input_shirt_color_index_change(new_value):
-	#TODO fix initial load
-	if (shirt_materials.size()):
-		$MeshInstance3D.mesh.material = shirt_materials[new_value]
+	shirt_material = new_value

@@ -7,7 +7,6 @@ extends MultiplayerSynchronizer
 # Synchronized property.
 @export var direction := Vector2()
 
-
 signal shirt_color_index_change(new_value)
 
 @export var shirt_material: int :
