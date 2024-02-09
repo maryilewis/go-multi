@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://j0em7fq86whj"]
+[gd_scene load_steps=57 format=3 uid="uid://j0em7fq86whj"]
 
 [ext_resource type="Script" path="res://Levels/Hello/place.gd" id="1_hbqq1"]
 [ext_resource type="Shader" path="res://Levels/Env/sky.gdshader" id="2_410bv"]
@@ -97,9 +97,24 @@ sky_material = SubResource("ShaderMaterial_852qj")
 background_mode = 2
 sky = SubResource("Sky_54ymv")
 ambient_light_source = 2
-ambient_light_color = Color(1, 1, 1, 1)
-ambient_light_energy = 1.17
+ambient_light_color = Color(0.784314, 0.807843, 0.627451, 1)
 glow_enabled = true
+glow_bloom = 0.5
+fog_enabled = true
+fog_light_color = Color(0.815686, 0.741176, 0.560784, 1)
+fog_aerial_perspective = 0.751
+fog_sky_affect = 0.409
+adjustment_enabled = true
+adjustment_contrast = 1.52
+adjustment_saturation = 1.64
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_kkrqf"]
+auto_exposure_enabled = true
+dof_blur_far_enabled = true
+dof_blur_far_distance = 20.0
+dof_blur_far_transition = 20.0
+dof_blur_near_enabled = true
+dof_blur_amount = 0.05
 
 [node name="Place" type="Node3D"]
 script = ExtResource("1_hbqq1")
@@ -120,11 +135,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("BoxShape3D_8e1co")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -0.0272412, 0.999629, 0, -0.999629, -0.0272412, 0, 6.90276, 0)
+transform = Transform3D(-0.912735, 0.3319, -0.23824, -1.29914e-08, 0.58313, 0.812379, 0.408553, 0.741486, -0.532243, 190.144, 6.90276, 0)
 light_energy = 0.39
+shadow_enabled = true
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.73585, 0)
+transform = Transform3D(0.439391, -0.898296, 0, 0.898296, 0.439391, 0, 0, 0, 1, 80.1541, 3.73585, 0)
+light_color = Color(1, 0.886275, 0.752941, 1)
+light_energy = 5.297
+light_size = 1.0
+light_specular = 0.718
+omni_range = 726.894
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://Characters/Player/player.tscn")
@@ -133,6 +154,7 @@ spawn_limit = 4
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_cfsnj")
+camera_attributes = SubResource("CameraAttributesPractical_kkrqf")
 
 [node name="Nature" type="Node3D" parent="."]
 

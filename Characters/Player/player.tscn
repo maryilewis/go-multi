@@ -52,6 +52,7 @@ script = ExtResource("1_b8ru6")
 [node name="Indicator" type="MeshInstance3D" parent="."]
 transform = Transform3D(-0.2, 1.74846e-08, 0, -1.74846e-08, -0.2, 0, 0, 0, 0.2, 0, 1.66025, 0)
 visible = false
+cast_shadow = 0
 mesh = SubResource("PrismMesh_f1h3y")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -151,7 +152,13 @@ popup/item_4/id = 4
 popup/item_5/text = "Purple"
 popup/item_5/id = 5
 
+[node name="Done" type="Button" parent="Character Settings/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Done
+"
+
 [connection signal="name_change" from="PlayerInput" to="." method="_on_player_input_name_change"]
 [connection signal="shirt_color_index_change" from="PlayerInput" to="." method="_on_player_input_shirt_color_index_change"]
 [connection signal="text_changed" from="Character Settings/Panel/VBoxContainer/HBoxContainer/LineEdit" to="PlayerInput" method="_on_name_changed"]
 [connection signal="item_selected" from="Character Settings/Panel/VBoxContainer/Color 1/OptionButton" to="PlayerInput" method="_on_shirt_color_selected"]
+[connection signal="pressed" from="Character Settings/Panel/VBoxContainer/Done" to="." method="_on_character_settings_done_pressed"]

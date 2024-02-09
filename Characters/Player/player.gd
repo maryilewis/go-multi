@@ -87,3 +87,7 @@ func _on_player_input_shirt_color_index_change(new_value):
 
 func _on_player_input_name_change(new_value):
 	display_name = new_value
+
+
+func _on_character_settings_done_pressed():
+	$"Character Settings".visible = false
