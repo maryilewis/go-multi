@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://j0em7fq86whj"]
+[gd_scene load_steps=58 format=3 uid="uid://j0em7fq86whj"]
 
 [ext_resource type="Script" path="res://Levels/Hello/place.gd" id="1_hbqq1"]
 [ext_resource type="Shader" path="res://Levels/Env/sky.gdshader" id="2_410bv"]
@@ -49,6 +49,7 @@
 [ext_resource type="PackedScene" uid="uid://dwkre8ah44l6i" path="res://Levels/Terrain/Kenney Nature/ground_riverBend.glb" id="47_bwvuo"]
 [ext_resource type="PackedScene" uid="uid://chu78yrjnr68j" path="res://Levels/Terrain/Kenney Nature/ground_riverBendBank.glb" id="48_df8rd"]
 [ext_resource type="PackedScene" uid="uid://dnfgkvhbxqayv" path="res://Levels/Terrain/Kenney Nature/ground_riverEndClosed.glb" id="49_ioai6"]
+[ext_resource type="PackedScene" uid="uid://hbih6ltxe7l8" path="res://Levels/Terrain/Things I Made/fire/fire.tscn" id="50_mrrv5"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_huhql"]
 albedo_color = Color(0.258824, 0.6, 0.560784, 1)
@@ -304,3 +305,6 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -2.619
 
 [node name="ground_riverEndClosed2" parent="Nature" instance=ExtResource("49_ioai6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.62337, 0, 1.4785)
+
+[node name="Fire" parent="." instance=ExtResource("50_mrrv5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.865, 0.6, -0.291)

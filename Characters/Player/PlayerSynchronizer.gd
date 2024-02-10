@@ -42,3 +42,4 @@ func _on_shirt_color_selected(index):
 
 func _on_name_changed(value):
 	display_name = value
+
