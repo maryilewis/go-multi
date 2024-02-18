@@ -81,9 +81,11 @@ func _physics_process(delta):
 
 	move_and_slide()
 
-func _input(event):
+func _input(_event):
 	if Input.is_action_just_pressed("ui_cancel"):
 		$"Character Settings".visible = !$"Character Settings".visible
+	# look at mouse position
+	# https://www.youtube.com/watch?v=v4IEPi1c0eE
 
 func _on_player_input_shirt_color_index_change(new_value):
 	shirt_material = new_value

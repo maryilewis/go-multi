@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://dtt8yc07ihbs"]
+
+[ext_resource type="Material" uid="uid://cqt2pmjf5gesu" path="res://Levels/Terrain/Things I Made/window/blue glass.tres" id="1_grukx"]
+[ext_resource type="Material" uid="uid://cfaihbnlwkrbj" path="res://Levels/Terrain/Things I Made/window/red glass.tres" id="2_nbidn"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_mkj4w"]
+lightmap_size_hint = Vector2i(14, 21)
+material = ExtResource("1_grukx")
+
+[sub_resource type="BoxMesh" id="BoxMesh_fhlre"]
+material = ExtResource("2_nbidn")
+
+[node name="StainedGlass" type="Node3D"]
+
+[node name="blue 1" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.05, 0, 0, 0)
+gi_mode = 2
+mesh = SubResource("BoxMesh_mkj4w")
+skeleton = NodePath("")
+
+[node name="red 1" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.05, 0.388977, 0, 0)
+gi_mode = 2
+mesh = SubResource("BoxMesh_fhlre")

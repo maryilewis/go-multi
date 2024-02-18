@@ -1,5 +1,6 @@
-[gd_scene load_steps=21 format=3 uid="uid://hbih6ltxe7l8"]
+[gd_scene load_steps=22 format=3 uid="uid://hbih6ltxe7l8"]
 
+[ext_resource type="Script" path="res://Levels/Terrain/Things I Made/fire/fire.gd" id="1_dw8fo"]
 [ext_resource type="Shader" uid="uid://cspdby1e0gech" path="res://Levels/Terrain/Things I Made/fire/fire_shader.tres" id="1_v6rdn"]
 [ext_resource type="Texture2D" uid="uid://l8n1nwohgdf3" path="res://Levels/Terrain/Things I Made/fire/images/Voronoi01.png" id="2_aund5"]
 [ext_resource type="Texture2D" uid="uid://cljofuw7uoswr" path="res://Levels/Terrain/Things I Made/fire/images/Flame01.png" id="2_x33jt"]
@@ -90,6 +91,7 @@ turbulence_noise_scale = 5.0
 [sub_resource type="QuadMesh" id="QuadMesh_vvyho"]
 
 [node name="Fire" type="Node3D"]
+script = ExtResource("1_dw8fo")
 
 [node name="StaticFlame" type="GPUParticles3D" parent="."]
 visible = false
@@ -123,4 +125,7 @@ process_material = SubResource("ParticleProcessMaterial_hjfok")
 draw_pass_1 = SubResource("QuadMesh_vvyho")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
+light_color = Color(1, 0.776471, 0.364706, 1)
 shadow_enabled = true
+omni_range = 13.382
+omni_attenuation = 1.51572

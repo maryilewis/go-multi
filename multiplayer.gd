@@ -50,7 +50,7 @@ func start_game():
 	# Only change level on the server.
 	# Clients will instantiate the level via the spawner.
 	if multiplayer.is_server():
-		change_level.call_deferred(load("res://Levels/Hello/place.tscn"))
+		change_level.call_deferred(load("res://Levels/dorm/dorm.tscn"))
 
 # Call this function deferred and only on the main authority (server).
 func change_level(scene: PackedScene):
