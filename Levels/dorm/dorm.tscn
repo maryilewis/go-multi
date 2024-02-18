@@ -79,7 +79,7 @@ albedo_color = Color(0.172549, 0.0980392, 0.0117647, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_5b35i"]
 material = SubResource("StandardMaterial3D_t314t")
 
-[node name="Place" type="Node3D"]
+[node name="Dorm" type="Node3D"]
 script = ExtResource("1_lwbq3")
 
 [node name="Players" type="Node3D" parent="."]
@@ -98,11 +98,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("BoxShape3D_8e1co")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(0.439391, -0.898296, 0, 0.898296, 0.439391, 0, 0, 0, 1, 80.1541, 3.73585, 0)
+transform = Transform3D(0.439391, -0.898296, 0, 0.898296, 0.439391, 0, 0, 0, 1, 13.5234, 14.8024, 0)
 light_color = Color(1, 0.886275, 0.752941, 1)
-light_energy = 5.297
+light_energy = 1.855
 light_size = 1.0
 light_specular = 0.718
+shadow_enabled = true
+shadow_transmittance_bias = 16.0
+shadow_blur = 2.873
 omni_range = 726.894
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
@@ -146,9 +149,5 @@ mesh = SubResource("BoxMesh_7ky87")
 skeleton = NodePath("../..")
 
 [node name="ceiling" type="MeshInstance3D" parent="."]
-transform = Transform3D(10, 0, 0, 0, 0.1, 0, 0, 0, 10, 0, 1.55069, -0.524594)
+transform = Transform3D(10, 0, 0, 0, 0.1, 0, 0, 0, 10, 0, 1.5, -0.525)
 mesh = SubResource("BoxMesh_5b35i")
-
-[node name="OmniLight3D" type="OmniLight3D" parent="ceiling"]
-transform = Transform3D(0.1, 0, 0, 0, 10, 0, 0, 0, 0.1, 1.062, 20.3933, 0.0596722)
-omni_range = 20.788

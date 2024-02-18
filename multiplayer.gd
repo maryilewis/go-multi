@@ -2,6 +2,11 @@ extends Node
 
 const PORT = 4433
 
+@onready var place_ref := preload("res://Levels/Hello/place.tscn")
+@onready var dorm_ref := preload("res://Levels/dorm/dorm.tscn")
+
+var current_level: PackedScene
+
 func _ready():
 	# Start paused.
 	get_tree().paused = true
@@ -13,6 +18,15 @@ func _ready():
 		print("Automatically starting dedicated server.")
 		_on_create_pressed.call_deferred()
 
+
+func _create_level_place():
+	print("create level place")
+	current_level = place_ref
+	_on_create_pressed()
+
+func _create_level_dorm():
+	current_level = dorm_ref
+	_on_create_pressed()
 
 func _on_create_pressed():
 	print("create")
@@ -50,7 +64,7 @@ func start_game():
 	# Only change level on the server.
 	# Clients will instantiate the level via the spawner.
 	if multiplayer.is_server():
-		change_level.call_deferred(load("res://Levels/dorm/dorm.tscn"))
+		change_level.call_deferred(current_level)
 
 # Call this function deferred and only on the main authority (server).
 func change_level(scene: PackedScene):
@@ -63,10 +77,3 @@ func change_level(scene: PackedScene):
 	level.add_child(scene.instantiate())
 	print("add scene")
 
-
-# The server can restart the level by pressing Home.
-func _input(event):
-	if not multiplayer.is_server():
-		return
-	if event.is_action("ui_home") and Input.is_action_just_pressed("ui_home"):
-		change_level.call_deferred(load("res://Levels/Hello/place.tscn"))
