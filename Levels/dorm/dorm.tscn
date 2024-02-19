@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://o3x8rmkw0j8s"]
+[gd_scene load_steps=19 format=3 uid="uid://o3x8rmkw0j8s"]
 
 [ext_resource type="Script" path="res://Levels/level.gd" id="1_8ayf6"]
 [ext_resource type="Shader" path="res://Levels/Env/sky.gdshader" id="3_0nxsa"]
+[ext_resource type="Script" path="res://Levels/dorm/Puzzle1.gd" id="4_e7v6o"]
 [ext_resource type="PackedScene" uid="uid://hbih6ltxe7l8" path="res://Levels/Terrain/Things I Made/fire/fire.tscn" id="51_xmv2l"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_huhql"]
@@ -79,6 +80,14 @@ albedo_color = Color(0.172549, 0.0980392, 0.0117647, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_5b35i"]
 material = SubResource("StandardMaterial3D_t314t")
 
+[sub_resource type="CylinderMesh" id="CylinderMesh_rxrar"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ekyds"]
+height = 0.1
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_5r360"]
+height = 0.03
+
 [node name="Dorm" type="Node3D"]
 script = ExtResource("1_8ayf6")
 
@@ -151,3 +160,26 @@ skeleton = NodePath("../..")
 [node name="ceiling" type="MeshInstance3D" parent="."]
 transform = Transform3D(10, 0, 0, 0, 0.1, 0, 0, 0, 10, 0, 1.5, -0.525)
 mesh = SubResource("BoxMesh_5b35i")
+
+[node name="Puzzle1" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.3948, 0, 0)
+script = ExtResource("4_e7v6o")
+
+[node name="Area3D" type="Area3D" parent="Puzzle1"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Puzzle1/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 0.03, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("CylinderMesh_rxrar")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Puzzle1/Area3D"]
+shape = SubResource("CylinderShape3D_ekyds")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Puzzle1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Puzzle1/StaticBody3D"]
+shape = SubResource("CylinderShape3D_5r360")
+
+[connection signal="area_entered" from="Puzzle1/Area3D" to="Puzzle1" method="_on_area_3d_area_entered"]
+[connection signal="body_entered" from="Puzzle1/Area3D" to="Puzzle1" method="_on_area_3d_body_entered"]
+[connection signal="body_shape_entered" from="Puzzle1/Area3D" to="Puzzle1" method="_on_area_3d_body_shape_entered"]
