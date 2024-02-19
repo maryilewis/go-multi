@@ -24,17 +24,20 @@ var shirt_materials = []
 		# Give authority over the player input to the appropriate peer.
 		$PlayerInput.set_multiplayer_authority(id)
 
+
 @export var shirt_material: int :
 	set(mat_index):
 		shirt_material = mat_index
 		#TODO fix initial load
 		if (shirt_materials.size()):
 			$MeshInstance3D.mesh.material = shirt_materials[mat_index]
-			
+
+
 @export var display_name: String :
 	set(new_name):
 		display_name = new_name
 		$Name.text = new_name
+
 
 # Player synchronized input.
 @onready var input = $PlayerInput
@@ -44,8 +47,7 @@ func _ready():
 	if player == multiplayer.get_unique_id():
 		$Camera3D.current = true
 		$Indicator.visible = true
-		$"Character Settings".process_mode = Node.PROCESS_MODE_INHERIT
-		$"Character Settings".visible = true
+
 	# Only process on server.
 	# EDIT: Let the client simulate player movement too to compesate network input latency.
 	set_physics_process(multiplayer.is_server())
@@ -55,6 +57,9 @@ func _ready():
 	shirt_materials.append(green_mat)
 	shirt_materials.append(blue_mat)
 	shirt_materials.append(purple_mat)
+	
+	$PlayerInput.shirt_material = CharacterManager.color_index
+	$PlayerInput.display_name = CharacterManager.display_name
 
 
 
@@ -81,11 +86,6 @@ func _physics_process(delta):
 
 	move_and_slide()
 
-func _input(_event):
-	if Input.is_action_just_pressed("ui_cancel"):
-		$"Character Settings".visible = !$"Character Settings".visible
-	# look at mouse position
-	# https://www.youtube.com/watch?v=v4IEPi1c0eE
 
 func _on_player_input_shirt_color_index_change(new_value):
 	shirt_material = new_value
@@ -94,9 +94,4 @@ func _on_player_input_shirt_color_index_change(new_value):
 func _on_player_input_name_change(new_value):
 	display_name = new_value
 
-func toggle_menu():
-	$"Character Settings".visible = !$"Character Settings".visible
-
-func _on_character_settings_done_pressed():
-	$"Character Settings".visible = false
 

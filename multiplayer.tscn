@@ -6,6 +6,7 @@
 script = ExtResource("1_4sxtl")
 
 [node name="UI" type="Panel" parent="."]
+process_mode = 2
 custom_minimum_size = Vector2(300, 300)
 anchors_preset = 8
 anchor_left = 0.5
@@ -31,23 +32,23 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Place" type="Button" parent="UI/VBoxContainer"]
-process_mode = 3
 layout_mode = 2
 text = "Place"
 
 [node name="Dorm" type="Button" parent="UI/VBoxContainer"]
-process_mode = 3
 layout_mode = 2
 text = "Dorm"
 
 [node name="Join" type="Button" parent="UI/VBoxContainer"]
-process_mode = 3
 layout_mode = 2
 text = "Join
 "
 
+[node name="Character" type="Button" parent="UI/VBoxContainer"]
+layout_mode = 2
+text = "Character"
+
 [node name="Remote" type="TextEdit" parent="UI/VBoxContainer"]
-process_mode = 3
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 text = "127.0.0.1"
@@ -59,6 +60,88 @@ _spawnable_scenes = PackedStringArray("res://Levels/Hello/place.tscn", "res://Le
 spawn_path = NodePath("../Level")
 spawn_limit = 1
 
+[node name="Character Settings" type="Control" parent="."]
+process_mode = 4
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="Character Settings"]
+custom_minimum_size = Vector2(300, 150)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Character Settings/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.5
+offset_top = -35.0
+offset_right = 125.5
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Character Settings/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Character Settings/Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Name"
+
+[node name="LineEdit" type="LineEdit" parent="Character Settings/Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Color 1" type="HBoxContainer" parent="Character Settings/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Character Settings/Panel/VBoxContainer/Color 1"]
+layout_mode = 2
+text = "Color 1
+"
+
+[node name="OptionButton" type="OptionButton" parent="Character Settings/Panel/VBoxContainer/Color 1"]
+layout_mode = 2
+item_count = 6
+popup/item_0/text = "Red"
+popup/item_0/id = 0
+popup/item_1/text = "Orange"
+popup/item_1/id = 1
+popup/item_2/text = "Yellow"
+popup/item_2/id = 2
+popup/item_3/text = "Green"
+popup/item_3/id = 3
+popup/item_4/text = "Blue"
+popup/item_4/id = 4
+popup/item_5/text = "Purple"
+popup/item_5/id = 5
+
+[node name="Done" type="Button" parent="Character Settings/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Done
+"
+
 [connection signal="pressed" from="UI/VBoxContainer/Place" to="." method="_create_level_place"]
 [connection signal="pressed" from="UI/VBoxContainer/Dorm" to="." method="_create_level_dorm"]
 [connection signal="pressed" from="UI/VBoxContainer/Join" to="." method="_on_join_pressed"]
+[connection signal="pressed" from="UI/VBoxContainer/Character" to="." method="_on_character_pressed"]
+[connection signal="text_changed" from="Character Settings/Panel/VBoxContainer/HBoxContainer/LineEdit" to="." method="_on_line_edit_text_changed"]
+[connection signal="item_selected" from="Character Settings/Panel/VBoxContainer/Color 1/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="pressed" from="Character Settings/Panel/VBoxContainer/Done" to="." method="_on_done_pressed"]

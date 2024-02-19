@@ -1,5 +1,5 @@
 # level.gd
-extends Node3D
+class_name Level extends Node3D
 
 const SPAWN_RANDOM := 5.0
 
@@ -28,7 +28,7 @@ func _exit_tree():
 
 
 func add_player(id: int):
-	print("add_player: ", id)
+	print("add_player: ", id, CharacterManager.display_name, CharacterManager.color_index)
 	var character = preload("res://Characters/Player/player.tscn").instantiate()
 	# Set player id.
 	character.player = id

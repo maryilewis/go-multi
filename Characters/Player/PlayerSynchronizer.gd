@@ -36,10 +36,3 @@ func _process(_delta):
 	if Input.is_action_just_pressed("ui_accept"):
 		jump.rpc()
 
-# set shirt color
-func _on_shirt_color_selected(index):
-	shirt_material = index
-
-func _on_name_changed(value):
-	display_name = value
-

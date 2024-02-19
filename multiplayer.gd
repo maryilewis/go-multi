@@ -8,6 +8,7 @@ const PORT = 4433
 var current_level: PackedScene
 
 func _ready():
+	$UI/VBoxContainer/Place.grab_focus()
 	# Start paused.
 	get_tree().paused = true
 	# You can save bandwidth by disabling server relay and peer notifications.
@@ -57,6 +58,7 @@ func _on_join_pressed():
 
 
 func start_game():
+	_on_done_pressed()
 	print("start game")
 	# Hide the UI and unpause to start the game.
 	$UI.hide()
@@ -76,4 +78,27 @@ func change_level(scene: PackedScene):
 	# Add new level.
 	level.add_child(scene.instantiate())
 	print("add scene")
+
+#region Character Options
+
+func _on_character_pressed():
+	$"Character Settings".process_mode = Node.PROCESS_MODE_WHEN_PAUSED
+	$"Character Settings".visible = true
+	$"Character Settings/Panel/VBoxContainer/HBoxContainer/LineEdit".grab_focus()
+
+
+func _on_line_edit_text_changed(new_text):
+	CharacterManager.display_name = new_text
+
+
+func _on_option_button_item_selected(index):
+	CharacterManager.color_index = index
+
+
+func _on_done_pressed():
+	$"Character Settings".visible = false
+	$"Character Settings".process_mode = Node.PROCESS_MODE_DISABLED
+	#$UI/VBoxContainer/Place.grab_focus()
+	
+#endregion
 
