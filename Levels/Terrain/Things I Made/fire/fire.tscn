@@ -102,6 +102,7 @@ process_material = SubResource("ParticleProcessMaterial_bovg3")
 draw_pass_1 = SubResource("QuadMesh_jf2kr")
 
 [node name="Smoke" type="GPUParticles3D" parent="."]
+visible = false
 sorting_offset = -1.0
 material_override = SubResource("ShaderMaterial_1ntge")
 amount = 20
@@ -117,6 +118,7 @@ process_material = SubResource("ParticleProcessMaterial_3go4p")
 draw_pass_1 = SubResource("QuadMesh_sbg4e")
 
 [node name="ParticlesFloating" type="GPUParticles3D" parent="."]
+visible = false
 sorting_offset = 1.0
 material_override = SubResource("ShaderMaterial_giooo")
 amount = 50
